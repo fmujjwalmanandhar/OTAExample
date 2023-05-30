@@ -1,0 +1,24 @@
+{
+  "name": "OTAExample",
+  "displayName": "OTAExample",
+  "expo": {
+    "name": "OTAExample",
+    "slug": "OTAExample",
+    "ios": {
+      "bundleIdentifier": "com.otaexample"
+    },
+    "android": {
+      "package": "com.otaexample"
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "http://localhost:3000/api/manifest"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b3d3e81f-1249-471e-96f4-0ea66b2d7196"
+      }
+    },
+    "owner": "ujjwal.manandhar"
+  }
+}
