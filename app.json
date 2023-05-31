@@ -5,15 +5,25 @@
     "name": "OTAExample",
     "slug": "OTAExample",
     "ios": {
+      "jsEngine": "jsc",
+      "buildNumber": "2",
       "bundleIdentifier": "com.otaexample"
     },
     "android": {
+      "versionCode": 3,
       "package": "com.otaexample"
     },
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": "1.0.3",
+    "version": "1.0.3",
     "updates": {
-      "url": "http://localhost:3000/api/manifest"
+      "enabled": true,
+      "fallbackToCacheTimeout": 1000,
+      "requestHeaders": {
+        "expo-channel-name": "production"
+      },
+      "url": "https://u.expo.dev/b3d3e81f-1249-471e-96f4-0ea66b2d7196"
     },
+    "jsEngine": "jsc",
     "extra": {
       "eas": {
         "projectId": "b3d3e81f-1249-471e-96f4-0ea66b2d7196"

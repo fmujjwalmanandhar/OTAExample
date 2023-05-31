@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import * as Updates from 'expo-updates';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -58,10 +59,30 @@ function Section({children, title}: SectionProps): JSX.Element {
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
+  const runTypeMessage = Updates.isEmbeddedLaunch
+    ? 'This app is running from built-in code'
+    : 'This app is running an update';
+  useEffect(() => {
+    onFetchUpdateAsync();
+  }, []);
+  const isHermes = () => !!global.HermesInternal;
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -77,8 +98,10 @@ function App(): JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits!!!
+            <Text>{runTypeMessage}</Text>
+            Update Channel -> {Updates.channel}
+            {isHermes} Edits <Text style={styles.highlight}>App.tsx</Text> to
+            change this screen and then come back to see your edits111
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
